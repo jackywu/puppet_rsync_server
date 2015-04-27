@@ -1,6 +1,7 @@
 class rsync-server {
   package {'rsync':
-    ensure => installed,
+    ensure        => installed,
+    allow_virtual => false,
   }
 
   file {'rsyncd-config':
@@ -22,7 +23,7 @@ class rsync-server {
   service {'rsyncd-service':
     name       => 'rsyncd',
     ensure     => 'running',
-    subscribe  => [Package['rsync'], 
+    subscribe  => [Package['rsync'],
                    File['rsyncd-config'],
                    File['rsyncd-init']],
   }
